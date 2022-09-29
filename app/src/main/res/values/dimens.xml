@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="postAvatar">48dp</dimen>
+    <dimen name="postStart">10dp</dimen>
+    <dimen name="postEnd">6dp</dimen>
+    <dimen name="buttonMarg">8dp</dimen>
+</resources>
