@@ -31,11 +31,13 @@ class MainActivity : AppCompatActivity() {
             viewText.text = counterView(post.counterView)
 
             if (post.likedByMe) {
+                println ("Tst1")
                 likeButton.setImageResource(R.drawable.ic_red_favorite_24dp)
             }
 
             likeButton.setOnClickListener {
                 post.likedByMe = !post.likedByMe
+                println ("Tst2")
                 binding.likeButton.setImageResource(
                     if (post.likedByMe) R.drawable.ic_red_favorite_24dp else R.drawable.ic_favorite_24dp
                 )
