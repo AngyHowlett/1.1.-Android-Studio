@@ -6,7 +6,7 @@ data class Post (
     val content: String,
     val published: String,
     var counterLike: Int = 0,
-    var conterRepost: Int = 0,
+    var counterRepost: Int = 0,
     var counterView: Int = 0,
     var likedByMe: Boolean = false
 )
