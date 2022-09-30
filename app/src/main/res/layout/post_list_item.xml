@@ -82,7 +82,8 @@
         app:layout_constraintStart_toStartOf="@id/textPost"
         app:layout_constraintTop_toBottomOf="@id/textPost"
         tools:ignore="SmallSp"
-        tools:text="@string/link" />
+        tools:text="http://netolo.gy/fyb"
+        android:autoLink="web" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier1"
