@@ -2,4 +2,15 @@
     <string name="app_name">Android</string>
     <string name="greeting">Android!</string>
     <string name="post_author">Post author</string>
+    <string name="remove">Remove</string>
+    <string name="post_text">Write your text</string>
+    <string name="menu_edit">Edit your text</string>
+    <string name="save_button">save_button</string>
+    <string name="edit">Edit</string>
+    <string name="editImage">Edit image</string>
+    <string name="editTextTop">Top Text</string>
+    <string name="edit_text">Edit Text</string>
+    <string name="edit_message">Edit Message</string>
+    <string name="cancelEditButton">Отменить редактирование</string>
+
 </resources>

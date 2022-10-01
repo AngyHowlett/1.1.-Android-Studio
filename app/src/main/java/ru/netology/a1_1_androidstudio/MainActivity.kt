@@ -1,17 +1,17 @@
 package ru.netology.a1_1_androidstudio
 
-import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import ru.netology.a1_1_androidstudio.databinding.ActivityMainBinding
-import ru.netology.a1_1_androidstudio.dto.counterView
+import ru.netology.a1_1_androidstudio.dto.PostsAdapter
+import ru.netology.a1_1_androidstudio.util.hideKeyboard
 import ru.netology.a1_1_androidstudio.viewModel.PostViewModel
 
 
 class MainActivity : AppCompatActivity() {
-
-    private val viewModel by viewModels<PostViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,31 +19,50 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel.data.observe(this) { post ->
-            with(binding) {
-                authorName.text = post.author
-                textPost.text = post.content
-                date.text = post.published
+        val viewModel by viewModels<PostViewModel>()
 
-                likeText.text = counterView(post.counterLike)
-                repostText.text = counterView(post.counterRepost)
-                viewText.text = counterView(post.counterView)
+        val adapter = PostsAdapter(viewModel)
+        binding.container.adapter = adapter
+        viewModel.data.observe(this) { posts ->
+            adapter.submitList(posts)
+        }
 
-                likeButton.setImageResource(getLikeIconRes(post.likedByMe))
-
-                likeButton.setOnClickListener {
-                    viewModel.onLikeClicked()
+        binding.saveButton.setOnClickListener {
+            with(binding.contentEditText) {
+                if(text.isNullOrBlank()) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Content can't be empty",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
                 }
+                val content = text.toString()
+                viewModel.onSaveListener(content)
 
-                repostButton.setOnClickListener {
-                    viewModel.onRepostClicked()
+                clearFocus()
+                hideKeyboard()
+            }
+        }
+
+        viewModel.currentPost.observe(this) { currentPost ->
+            with(binding.contentEditText) {
+                val content = currentPost?.content
+                setText(content)
+                if (content != null) {
+                    requestFocus()
+                    binding.group.visibility = View.VISIBLE
+                    binding.editTextBottom.text = content
+
                 }
             }
         }
-    }
+        binding.editCancelButton.setOnClickListener {
+            viewModel.currentPost.value = null
+            binding.group.visibility = View.GONE
+            binding.editTextBottom.clearFocus()
+            binding.editTextBottom.hideKeyboard()
+        }
 
-    @DrawableRes
-    private fun getLikeIconRes(liked: Boolean) =
-        if (liked) R.drawable.ic_red_favorite_24dp else
-            R.drawable.ic_favorite_24dp
+    }
 }
