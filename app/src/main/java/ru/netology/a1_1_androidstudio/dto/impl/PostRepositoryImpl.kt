@@ -1,29 +1,31 @@
-package ru.netology.a1_1_androidstudio.dto
+package ru.netology.a1_1_androidstudio.dto.impl
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ru.netology.a1_1_androidstudio.dto.Post
+import ru.netology.a1_1_androidstudio.dto.PostRepository
 
 class PostRepositoryImpl : PostRepository {
 
     private var nextId = GENERATED_POSTS_AMOUNT.toLong()
 
-    private var posts =
+    override val data = MutableLiveData(
         List(GENERATED_POSTS_AMOUNT) { index ->
             Post(
                 id = index + 1L,
-                author = "Вася Пупкин",
-                content = "Привет! Это новый Вася Пупкин! " +
-                        "Очередной $index",
-                published = "11.07.2012"
+                author = "Адриано Челентано",
+                content = "Привет! Это новый Адриано Челентано! Очередной $index",
+                published = "21.05.2022"
             )
         }
+    )
 
-    private val data = MutableLiveData(posts)
-
-    override fun get(): LiveData<List<Post>> = data
+    private val posts
+        get() = checkNotNull(data.value) {
+            "Data value should not be null"
+        }
 
     override fun likeById(id: Long) {
-        posts = posts.map {
+        val newListPost = posts.map {
             if (it.id != id) it else {
                 if (!it.likedByMe) {
                     it.copy(counterLike = it.counterLike + 1, likedByMe = !it.likedByMe)
@@ -32,20 +34,20 @@ class PostRepositoryImpl : PostRepository {
                 }
             }
         }
-        data.value = posts
+        data.value = newListPost
 
     }
 
     override fun repostById(id: Long) {
-        posts = posts.map {
+        val newListPost = posts.map {
             if (it.id != id) it else it.copy(counterRepost = it.counterRepost + 1)
         }
-        data.value = posts
+        data.value = newListPost
     }
 
     override fun removeById(id: Long) {
-        posts = posts.filter { it.id != id }
-        data.value = posts
+        val newListPost = posts.filter { it.id != id }
+        data.value = newListPost
     }
 
     override fun save(post: Post) {
@@ -53,15 +55,15 @@ class PostRepositoryImpl : PostRepository {
     }
 
     private fun insert(post: Post) {
-        posts = listOf(post.copy(id = ++nextId)) + posts
-        data.value = posts
+        val newListPost = listOf(post.copy(id = ++nextId)) + posts
+        data.value = newListPost
     }
 
-    private fun update(post: Post) {
-        posts = posts.map {
+    override fun update(post: Post) {
+        val newListPost = posts.map {
             if (it.id == post.id) post else it
         }
-        data.value = posts
+        data.value = newListPost
     }
 
     private companion object {

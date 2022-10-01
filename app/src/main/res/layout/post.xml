@@ -84,6 +84,35 @@
         tools:ignore="SmallSp"
         tools:text="@string/link" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/videoContentGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="videoBannerImageButton, videoPlayMaterialButton" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/videoBannerImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_background"
+        app:layout_constraintBottom_toTopOf="@id/barrier1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textLink" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/videoPlayMaterialButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:icon="@drawable/ic_play_24"
+        app:iconSize="80dp"
+        app:layout_constraintBottom_toBottomOf="@id/videoBannerImageButton"
+        app:layout_constraintEnd_toEndOf="@id/videoBannerImageButton"
+        app:layout_constraintStart_toStartOf="@id/videoBannerImageButton"
+        app:layout_constraintTop_toTopOf="@id/videoBannerImageButton" />
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier1"
         android:layout_width="0dp"
@@ -132,7 +161,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier1"
         app:rippleColor="@android:color/transparent"
-        tools:text="100" />
+        tools:text="100"
+
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

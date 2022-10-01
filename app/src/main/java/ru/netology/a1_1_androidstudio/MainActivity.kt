@@ -1,13 +1,13 @@
 package ru.netology.a1_1_androidstudio
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import ru.netology.a1_1_androidstudio.activity.PostContentActivity
 import ru.netology.a1_1_androidstudio.databinding.ActivityMainBinding
 import ru.netology.a1_1_androidstudio.dto.PostsAdapter
-import ru.netology.a1_1_androidstudio.util.hideKeyboard
 import ru.netology.a1_1_androidstudio.viewModel.PostViewModel
 
 
@@ -27,42 +27,42 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(posts)
         }
 
-        binding.saveButton.setOnClickListener {
-            with(binding.contentEditText) {
-                if(text.isNullOrBlank()) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Content can't be empty",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
-                val content = text.toString()
-                viewModel.onSaveListener(content)
+        val postContentActivityLauncher = registerForActivityResult(
+            PostContentActivity.ResultContract
+        ) { postContent ->
+            postContent ?: return@registerForActivityResult
+            viewModel.onSaveListener(postContent)
+        }
 
-                clearFocus()
-                hideKeyboard()
+        binding.fab.setOnClickListener {
+            viewModel.onAddClicked()
+
+            viewModel.repostPostContent.observe(this) { postContent ->
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, postContent)
+                    type = "text/plain"
+                }
+
+                val repostIntent =
+                    Intent.createChooser(
+                        intent, getString(R.string.chooser_share_post)
+                    )
+                startActivity(repostIntent)
+            }
+
+
+
+            viewModel.navigateToPostContentScreenEvent.observe(this) {
+                val content = viewModel.currentPost.value?.content
+                postContentActivityLauncher.launch(content)
             }
         }
-
-        viewModel.currentPost.observe(this) { currentPost ->
-            with(binding.contentEditText) {
-                val content = currentPost?.content
-                setText(content)
-                if (content != null) {
-                    requestFocus()
-                    binding.group.visibility = View.VISIBLE
-                    binding.editTextBottom.text = content
-
-                }
+        viewModel.videoUrl.observe(this) { link ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
             }
         }
-        binding.editCancelButton.setOnClickListener {
-            viewModel.currentPost.value = null
-            binding.group.visibility = View.GONE
-            binding.editTextBottom.clearFocus()
-            binding.editTextBottom.hideKeyboard()
-        }
-
     }
 }
