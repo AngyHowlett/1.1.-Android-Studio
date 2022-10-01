@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">1-1_AndroidStudio</string>
+    <string name="app_name">Android</string>
+    <string name="greeting">Android!</string>
+    <string name="post_author">Post author</string>
 </resources>
