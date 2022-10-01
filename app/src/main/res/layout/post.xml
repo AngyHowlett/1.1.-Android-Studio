@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/avatar"
+        android:layout_width="@dimen/postAvatar"
+        android:layout_height="@dimen/postAvatar"
+        android:contentDescription="@string/post_author"
+        android:src="@drawable/ic_avatar_48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/authorName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/postStart"
+        android:layout_marginEnd="@dimen/postEnd"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="8pt"
+        app:layout_constraintBottom_toTopOf="@id/date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/menuButton"
+        app:layout_constraintStart_toEndOf="@id/avatar"
+        app:layout_constraintTop_toTopOf="@id/avatar"
+        tools:text="@string/netologyText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="6pt"
+        app:layout_constraintBottom_toBottomOf="@id/avatar"
+        app:layout_constraintEnd_toEndOf="@id/authorName"
+        app:layout_constraintStart_toStartOf="@id/authorName"
+        app:layout_constraintTop_toBottomOf="@id/authorName"
+        tools:text="28 июня в 21.40" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/menuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_options_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="avatar, date, menuButton" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/postStart"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/textLink"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        tools:ignore="SmallSp"
+        tools:text="@string/publishedText" />
+
+    <TextView
+        android:id="@+id/textLink"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/textPost"
+        app:layout_constraintStart_toStartOf="@id/textPost"
+        app:layout_constraintTop_toBottomOf="@id/textPost"
+        tools:ignore="SmallSp"
+        tools:text="@string/link" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/videoContentGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="videoBannerImageButton, videoPlayMaterialButton" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/videoBannerImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_background"
+        app:layout_constraintBottom_toTopOf="@id/barrier1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textLink" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/videoPlayMaterialButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:icon="@drawable/ic_play_24"
+        app:iconSize="80dp"
+        app:layout_constraintBottom_toBottomOf="@id/videoBannerImageButton"
+        app:layout_constraintEnd_toEndOf="@id/videoBannerImageButton"
+        app:layout_constraintStart_toStartOf="@id/videoBannerImageButton"
+        app:layout_constraintTop_toTopOf="@id/videoBannerImageButton" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="textLink" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/likeButton"
+        style="@style/Widget.AppTheme.LikeCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:contentDescription="@string/like"
+        android:textColor="?attr/colorOnSurface"
+        app:backgroundTint="@android:color/transparent"
+        app:icon="@drawable/ic_like_24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier1"
+        tools:text="100" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/repostButton"
+        style="@style/Widget.AppTheme.RepostButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="true"
+        android:contentDescription="@string/repost"
+        android:textColor="?attr/colorOnSurface"
+        app:backgroundTint="@android:color/transparent"
+        app:icon="@drawable/ic_repost_24dp"
+        app:layout_constraintStart_toEndOf="@id/likeButton"
+        app:layout_constraintTop_toBottomOf="@id/barrier1"
+        tools:text="100" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewButton"
+        style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkable="false"
+        android:contentDescription="@string/view"
+        android:textColor="?attr/colorOnSurface"
+        app:backgroundTint="@android:color/transparent"
+        app:icon="@drawable/ic_view_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier1"
+        app:rippleColor="@android:color/transparent"
+        tools:text="100"
+
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
