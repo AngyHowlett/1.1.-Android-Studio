@@ -1,9 +1,9 @@
 package ru.netology.a1_1_androidstudio
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.annotation.DrawableRes
 import androidx.activity.viewModels
+import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatActivity
 import ru.netology.a1_1_androidstudio.databinding.ActivityMainBinding
 import ru.netology.a1_1_androidstudio.dto.counterView
 import ru.netology.a1_1_androidstudio.viewModel.PostViewModel
@@ -12,8 +12,6 @@ import ru.netology.a1_1_androidstudio.viewModel.PostViewModel
 class MainActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<PostViewModel>()
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,5 +44,6 @@ class MainActivity : AppCompatActivity() {
 
     @DrawableRes
     private fun getLikeIconRes(liked: Boolean) =
-        if (liked) R.drawable.ic_red_favorite_24dp else R.drawable.ic_favorite_24dp
+        if (liked) R.drawable.ic_red_favorite_24dp else
+            R.drawable.ic_favorite_24dp
 }
