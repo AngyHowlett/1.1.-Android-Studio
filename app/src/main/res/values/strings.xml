@@ -11,6 +11,8 @@
     <string name="editTextTop">Top Text</string>
     <string name="edit_text">Edit Text</string>
     <string name="edit_message">Edit Message</string>
-    <string name="cancelEditButton">Отменить редактирование</string>
-
+    <string name="cancelEditButton">Cancel edit</string>
+    <string name="like">Like</string>
+    <string name="repost">Repost</string>
+    <string name="view">View</string>
 </resources>

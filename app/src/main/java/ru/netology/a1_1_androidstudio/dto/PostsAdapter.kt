@@ -38,11 +38,11 @@ class PostViewHolder(
             textPost.text = post.content
             date.text = post.published
 
-            likeText.text = counterView(post.counterLike)
-            repostText.text = counterView(post.counterRepost)
-            viewText.text = counterView(post.counterView)
+            likeButton.text = counterView(post.counterLike)
+            repostButton.text = counterView(post.counterRepost)
+            viewButton.text = counterView(post.counterView)
 
-            likeButton.setImageResource(getLikeIconRes(post.likedByMe))
+            likeButton.isChecked = post.likedByMe
 
             likeButton.setOnClickListener {
                 listener.onLikeListener(post)
@@ -74,11 +74,6 @@ class PostViewHolder(
     }
 
 }
-
-
-@DrawableRes
-private fun getLikeIconRes(liked: Boolean) =
-    if (liked) R.drawable.ic_red_favorite_24dp else R.drawable.ic_favorite_24dp
 
 class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
     override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {

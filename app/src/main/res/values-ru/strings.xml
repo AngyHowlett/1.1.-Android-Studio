@@ -14,5 +14,8 @@
     <string name="editTextTop">Заголовок</string>
     <string name="edit_text">Редактировать текст</string>
     <string name="edit_message">Редактировать сообщение</string>
-    <string name="cancelEditButton">Cancel Edit</string>
+    <string name="cancelEditButton">Отменить редактирование</string>
+    <string name="like">Нравится</string>
+    <string name="repost">Поделиться</string>
+    <string name="view">Просмотры</string>
 </resources>
