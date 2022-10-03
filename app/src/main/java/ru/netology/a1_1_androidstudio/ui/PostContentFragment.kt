@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ru.netology.a1_1_androidstudio.databinding.PostContentFragmentBinding
 
+
 class PostContentFragment : Fragment() {
 
     private val args by navArgs<PostContentFragmentArgs>()
