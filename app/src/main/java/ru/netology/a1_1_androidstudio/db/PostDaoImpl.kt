@@ -4,6 +4,8 @@ import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import ru.netology.a1_1_androidstudio.dto.Post
 
+
+
 class PostDaoImpl(
     private val db: SQLiteDatabase
 ) : PostDao {
@@ -52,7 +54,7 @@ class PostDaoImpl(
 
     override fun likeById(id: Long) {
         db.execSQL(
-                """
+            """
                 UPDATE ${PostsTable.NAME} SET
                     likes = likes + CASE WHEN likedByMe THEN -1 ELSE 1 END,
                     likedByMe = CASE WHEN likedByMe THEN 0 ELSE 1 END
