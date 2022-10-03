@@ -1,8 +1,8 @@
-package ru.netology.a1_1_androidstudio.dto.impl
+package ru.netology.a1_1_androidstudio.data.impl
 
 import androidx.lifecycle.MutableLiveData
 import ru.netology.a1_1_androidstudio.dto.Post
-import ru.netology.a1_1_androidstudio.dto.PostRepository
+import ru.netology.a1_1_androidstudio.data.PostRepository
 
 class PostRepositoryImpl : PostRepository {
 
@@ -59,7 +59,7 @@ class PostRepositoryImpl : PostRepository {
         data.value = newListPost
     }
 
-    override fun update(post: Post) {
+    private fun update(post: Post) {
         val newListPost = posts.map {
             if (it.id == post.id) post else it
         }

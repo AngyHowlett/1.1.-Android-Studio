@@ -1,4 +1,4 @@
-package ru.netology.a1_1_androidstudio.dto.impl
+package ru.netology.a1_1_androidstudio.data.impl
 
 import android.app.Application
 import android.content.Context
@@ -6,12 +6,12 @@ import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import ru.netology.a1_1_androidstudio.data.PostRepository
 import ru.netology.a1_1_androidstudio.dto.Post
-import ru.netology.a1_1_androidstudio.dto.PostRepository
 import kotlin.properties.Delegates
 
 class FilePostRepository(
-    private val application: Application
+   private val application: Application
 ) : PostRepository {
 
     private val gson = Gson()
@@ -85,7 +85,7 @@ class FilePostRepository(
         posts = listOf(post.copy(id = ++nextId)) + posts
     }
 
-    override fun update(post: Post) {
+    private fun update(post: Post) {
         posts = posts.map {
             if (it.id == post.id) post else it
         }

@@ -1,4 +1,6 @@
-package ru.netology.a1_1_androidstudio.dto
+package ru.netology.a1_1_androidstudio.adapter
+
+import ru.netology.a1_1_androidstudio.dto.Post
 
 interface PostInteractionListener {
 
@@ -13,5 +15,7 @@ interface PostInteractionListener {
     fun onVideoPlayButtonClicked(post: Post)
 
     fun onVideoBannerClicked(post: Post)
+
+    fun onPostClicked(post: Post)
 
 }

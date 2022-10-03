@@ -1,25 +1,17 @@
 package ru.netology.a1_1_androidstudio.viewModel
 
-
-import SingleLiveEvent
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import ru.netology.a1_1_androidstudio.dto.*
-import ru.netology.a1_1_androidstudio.dto.impl.FilePostRepository
+import androidx.lifecycle.ViewModel
+import ru.netology.a1_1_androidstudio.dto.Post
+import ru.netology.a1_1_androidstudio.dto.PostInteractionListener
+import ru.netology.a1_1_androidstudio.dto.PostRepository
+import ru.netology.a1_1_androidstudio.dto.PostRepositoryImpl
 
-class PostViewModel(
-    application: Application
-): AndroidViewModel(application),
-    PostInteractionListener {
-    private val repository: PostRepository =
-        FilePostRepository(application)
+class PostViewModel: ViewModel(), PostInteractionListener {
+    private val repository: PostRepository = PostRepositoryImpl()
 
-    val data by repository::data
+    val data = repository.get()
 
-    val repostPostContent = SingleLiveEvent<String>()
-    val navigateToPostContentScreenEvent = SingleLiveEvent<Unit>()
-    val videoUrl = SingleLiveEvent<String>()
     val currentPost = MutableLiveData<Post?>(null)
 
     fun onSaveListener(content: String) {
@@ -27,38 +19,19 @@ class PostViewModel(
             content = content
         ) ?: Post(
             id = PostRepository.NEW_POST_ID,
-            author = "Иван Петрович",
+            author = "Данил Иванов",
             content = content,
-            published = "10.12.2021"
+            published = "03.09.2022"
         )
         repository.save(post)
         currentPost.value = null
     }
 
-    fun onAddClicked() {
-        currentPost.value = null
-        navigateToPostContentScreenEvent.call()
-    }
-
     override fun onLikeListener(post: Post) = repository.likeById(post.id)
-
-    override fun onRepostListener(post: Post) {
-        repostPostContent.value = post.content
-        repository.repostById(post.id)
-    }
+    override fun onRepostListener(post: Post) = repository.repostById(post.id)
     override fun onRemoveListener(post: Post) = repository.removeById(post.id)
-
     override fun onEditListener(post: Post) {
         currentPost.value = post
-        navigateToPostContentScreenEvent.call()
-    }
-
-    override fun onVideoPlayButtonClicked(post: Post) {
-        videoUrl.value = post.videoUrl
-    }
-
-    override fun onVideoBannerClicked(post: Post) {
-        videoUrl.value = post.videoUrl
     }
 
 }

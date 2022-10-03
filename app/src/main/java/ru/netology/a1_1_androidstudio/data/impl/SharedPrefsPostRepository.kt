@@ -1,4 +1,4 @@
-package ru.netology.a1_1_androidstudio.dto.impl
+package ru.netology.a1_1_androidstudio.data.impl
 
 import android.app.Application
 import android.content.Context
@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import ru.netology.a1_1_androidstudio.data.PostRepository
 import ru.netology.a1_1_androidstudio.dto.Post
-import ru.netology.a1_1_androidstudio.dto.PostRepository
 import kotlin.properties.Delegates
 
 class SharedPrefsPostRepository(
@@ -79,7 +79,7 @@ class SharedPrefsPostRepository(
         posts = listOf(post.copy(id = ++nextId)) + posts
     }
 
-    override fun update(post: Post) {
+    private fun update(post: Post) {
         posts = posts.map {
             if (it.id == post.id) post else it
         }

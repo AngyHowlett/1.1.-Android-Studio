@@ -1,4 +1,4 @@
-package ru.netology.a1_1_androidstudio.activity
+package ru.netology.a1_1_androidstudio.ui
 
 import android.content.Intent
 import android.os.Bundle
